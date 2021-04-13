@@ -32,7 +32,7 @@ from account.views import (
 )
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('project/', include('project.urls', 'project')),
+    path('study/', include('study.urls', 'study')),
     path('', home_screen_view, name="home"),
     path('register/', registration_view, name="register"),
     path('logout/', logout_view, name="logout"),

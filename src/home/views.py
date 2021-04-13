@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from account.models import Account
-from project.models import Project
-from project.views import get_project_queryset
+from study.models import Study
+#from Study.views import get_project_queryset
 from operator import attrgetter
 from django.core.paginator import EmptyPage, PageNotAnInteger, Paginator
 
@@ -17,7 +17,7 @@ def home_screen_view(request):
     # accounts = Account.objects.all()
     # context['accounts'] = accounts
 
-    projects = Project.objects.all()
-    context['projects'] = projects
+    studies = Study.objects.all()
+    context['studies'] = studies
     return render(request, "home/home.html", context)
 

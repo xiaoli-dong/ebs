@@ -4,6 +4,7 @@
 <style type="text/css">
 .container {
     padding: 2rem 0rem;
+    max-width: 90%;
   }
   
   h4 {
@@ -33,10 +34,10 @@
           </div>
     </div>
     
-    <div class="row">
+    
         
-        <div class="col-12">
-    <table class="table table-bordered table-striped">
+    <div class="table table-responsive">
+    <table class="table w-100 small table-bordered table-striped">
         <thead>
             <tr>
                 <th class="active">
@@ -44,46 +45,57 @@
                           <input type="checkbox" class="check" id="all"> 
                       </div>
                 </th>
-                <th scope="col">Project</th>
-                
+                <th scope="col">Run</th>
+                <th scope="col">Experiment</th>
                 <th scope="col">Sample</th>
-                <th scope="col">Organism</th>
-                <th scope="col">Sequence</th>
-                <th scope="col">Source</th>
+                <th scope="col">Study</th>
+                <th scope="col">Taxid</th>
+                <th scope="col">scientific_name</th>
+                <th scope="col">Count</th>
+                <th scope="col">Bases</th>
+                <th scope="col">AvgLen</th>
                 <th scope="col">Instrument</th>
-                <th scope="col">Strategy</th>
-                
+                <th scope="col">LibraryLayout</th>
+                <th scope="col">LibrarySelection</th>
+                <th scope="col">LibrarySource</th>
                 <th scope="col">Date created</th>
-                <th scope="col">Status</th>
                 <th scope="col">Actions</th>
             </tr>
         </thead>
         <tbody>
-    {% for project in projects %}
+    {% for study in studies %}
    
-    {% for sample in project.samples.all %}
+    {% for sample in study.samples.all %}
    
-    {% for seq in sample.seqs.all %}
-   
+    {% for experiment in sample.experiments.all %}
+    
+    {% for run in experiment.runs.all %}
     
    
         
                 <tr>
                     <td>
                         <div class="checkbox rows">
-                        <input type="checkbox" class="check" value="{{seq.id}}" id="{{seq.id}}">
+                        <input type="checkbox" class="check" value="{{experiment.title}}" id="{{experiment.id}}">
                     </div>
                 </td>
-        <td><a href="{% url 'project:detail' project.slug %}">{{project.title}}</a> </td>
+        <!-- td><a href="{% url 'study:detail' study.slug %}">{{study.title}}</a> </td -->
+         <td>{{run.name}}</td>
        
-    <td> <a href="">{{sample.title}}</a></td>
-    <td> {{sample.organism}}</td>
-    <td> <a href="">{{seq.title}}</a></td>
-    <td> {{seq.source}}</td>
-    <td> {{seq.instrument}}</td>
-    <td> {{seq.strategy}}</td>
     
-    <td>{{project.date_created|date:'Y-m-d H:i'}}</td> 
+    <td>{{experiment.title}}</td>
+    <td>{{sample.title}}</td>
+    <td>{{study.title}}</td>
+    <td>{{sample.taxon_id}}</td>
+    <td>{{sample.scientific_name}}</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>N/A</td>
+    <td>{{experiment.platform}}</td>
+    <td>{{experiment.library_layout}}</td>
+    <td>{{experiment.library_selection}}</td>
+    <td>{{experiment.library_source}}</td>
+    <td>{{study.date_created|date:'Y-m-d H:i'}}</td> 
     <td>processing</td>
     <td style='white-space: nowrap'>
         <button type="button" class="btn btn-primary btn-sm"><i class="far fa-eye"></i></button>
@@ -94,10 +106,10 @@
     {% endfor %}
     {% endfor %}
     {% endfor %}
-
+    {% endfor %}
 </tbody>
 </table>
-</div>
+
 </div>
 </div>
 {% endblock content %}
